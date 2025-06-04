@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/jenkins-on-aks.iml" filepath="$PROJECT_DIR$/.idea/jenkins-on-aks.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/jenkins-on-aks-with-terraform.iml" filepath="$PROJECT_DIR$/.idea/jenkins-on-aks-with-terraform.iml" />
     </modules>
   </component>
 </project>
