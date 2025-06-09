@@ -7,3 +7,6 @@ output "aks_public_subnet_id" {
 output "aks_private_subnet_id" {
   value = azurerm_subnet.aks_private_subnet[*].id
 }
+output "aks_vnet_details" {
+  value = azurerm_virtual_network.aks_vnet
+}

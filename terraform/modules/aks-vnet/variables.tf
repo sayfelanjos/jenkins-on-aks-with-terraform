@@ -1,4 +1,7 @@
-variable "clusters_name_prefix" {
+variable "name_prefix" {
+  type = string
+}
+variable "resource_group_name" {
   type = string
 }
 variable "azure_location" {

@@ -3,7 +3,7 @@ variable "azure_region" {
   type        = string
 }
 
-variable "clusters_name_prefix" {
-  description = "The prefix for the cluster names."
+variable "name_prefix" {
+  description = "The prefix for the cluster resource names."
   type        = string
 }
