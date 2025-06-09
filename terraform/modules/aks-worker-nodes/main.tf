@@ -5,7 +5,7 @@ resource "azurerm_kubernetes_cluster_node_pool" "aks_node_pool" {
   vm_size               = var.vm_size
   node_count            = var.node_count
   zones                 = var.availability_zones
-  mode = "User"
+  mode                  = "User"
   os_type               = var.os_type
   orchestrator_version  = var.orchestrator_version
   auto_scaling_enabled  = var.auto_scaling_enabled

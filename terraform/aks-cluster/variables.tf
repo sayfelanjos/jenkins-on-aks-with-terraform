@@ -46,3 +46,6 @@ variable "availability_zones" {
 variable "os_type" {
   type = string
 }
+variable "node_resource_group" {
+  type = string
+}

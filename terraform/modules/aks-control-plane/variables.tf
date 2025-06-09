@@ -25,3 +25,6 @@ variable "service_principal_client_secret" {
 variable "vnet_subnet_ids" {
   type = list(string)
 }
+variable "node_resource_group" {
+  type = string
+}

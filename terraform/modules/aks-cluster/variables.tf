@@ -52,3 +52,6 @@ variable "os_type" {
 variable "vnet_subnet_ids" {
   type = list(string)
 }
+variable "node_resource_group" {
+  type = string
+}
