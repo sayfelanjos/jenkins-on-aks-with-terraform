@@ -16,7 +16,7 @@ resource "azurerm_kubernetes_cluster" "aks_cluster" {
   sku_tier                = "Standard"
   node_os_upgrade_channel = "NodeImage"
   dns_prefix              = var.name_prefix
-  node_resource_group     = var.node_resource_group
+  node_resource_group     = var.node_resource_group_name
 
 
   # service_principal {
@@ -28,16 +28,19 @@ resource "azurerm_kubernetes_cluster" "aks_cluster" {
     type = "SystemAssigned"
   }
 
-
   default_node_pool {
-    name                         = "systempool"
-    scale_down_mode              = "system"
+    name                         = "agentpool"
+    scale_down_mode              = "Delete"
     temporary_name_for_rotation  = "temppool"
     zones                        = var.availability_zones
-    node_count                   = 3
+    auto_scaling_enabled         = true
+    node_count                   = 1
+    min_count                    = 1
+    max_count                    = 3
     vm_size                      = "Standard_D2s_v3"
     type                         = "VirtualMachineScaleSets"
     only_critical_addons_enabled = true
+    vnet_subnet_id               = var.vnet_subnet_ids[0]
   }
 
   network_profile {
@@ -45,8 +48,6 @@ resource "azurerm_kubernetes_cluster" "aks_cluster" {
     network_policy    = "calico"
     load_balancer_sku = "standard"
   }
-
-
 
   tags = var.common_tags
 }

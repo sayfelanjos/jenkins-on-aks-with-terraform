@@ -9,5 +9,5 @@ module "aks" {
   service_principal_client_secret = var.service_principal_client_secret
   common_tags                     = var.common_tags
   vnet_subnet_ids                 = var.vnet_subnet_ids
-  node_resource_group             = var.node_resource_group
+  node_resource_group_name        = var.node_resource_group_name
 }

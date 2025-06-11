@@ -1,3 +1,3 @@
-output "cluster_id" {
-  value = module.aks.cluster_id
+output "cluster_name" {
+  value = module.aks.cluster_name
 }

@@ -16,7 +16,7 @@ module "aks" {
   azure_location                  = var.azure_location
   name_prefix                     = var.name_prefix
   cluster_version                 = var.cluster_version
-  node_resource_group             = var.node_resource_group
+  node_resource_group_name        = var.node_resource_group_name
   common_tags                     = var.common_tags
   max_count                       = var.max_count
   min_count                       = var.min_count
