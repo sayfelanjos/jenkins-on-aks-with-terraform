@@ -2,8 +2,11 @@
 
 # This script sets up Jenkins on an Azure Kubernetes Service (AKS) cluster.
 
+JENKINS_INSTANCE_NAME="myjenkins"
+
 # Add the ingress-nginx repository as a source of Helm Charts
 helm repo add ingress-nginx https://kubernetes.github.io/ingress-nginx &&
+
 # Add the Jenkins Helm Chart repository
 helm repo add jenkins https://charts.jenkins.io &&
 
@@ -20,10 +23,9 @@ helm install ingress-nginx-jenkins ingress-nginx/ingress-nginx \
 
 
 # Install Jenkins using Helm
-
 CLUSTER_IP=$(kubectl get service/ingress-nginx-jenkins-controller -n jenkins -o jsonpath='{.status.loadBalancer.ingress[0].ip}') &&
 
-cat <<EOF | helm install -f - -n jenkins myjenkins jenkins/jenkins &&
+cat <<EOF | helm install -f - -n jenkins $JENKINS_INSTANCE_NAME jenkins/jenkins &&
 controller:
   jenkinsUrl: $CLUSTER_IP
   JCasC:
@@ -35,16 +37,21 @@ EOF
 
 # Create an Ingress resource for Jenkins
 kubectl apply -f ./jenkins-ingress.yaml -n jenkins &&
-
 echo "Jenkins has been successfully installed and configured."
-echo "You can access Jenkins at http://$CLUSTER_IP"
 
-# To access Jenkins, you can use the following command to get the admin password:
-echo "Username: admin"
 
-# TODO: It necessary to check the container status before executing the command
+# Check if the Jenkins pod is running
+while [ -z "$(kubectl get pods -n jenkins | grep "^$JENKINS_INSTANCE_NAME" | grep -o "Running")" ]; do
+  echo "Waiting for Jenkins service to be ready..."
+  sleep 5
+done
+
+echo -e "You can access Jenkins at http://$CLUSTER_IP"
+
+# Get the Jenkins admin username and password
 Password=$(kubectl exec --namespace jenkins \
- -it svc/myjenkins -c jenkins \
+ -it svc/$JENKINS_INSTANCE_NAME -c jenkins \
  -- /bin/cat /run/secrets/additional/chart-admin-password)
 
+echo "Username: admin"
 echo "Password: $Password"

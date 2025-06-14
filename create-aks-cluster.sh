@@ -31,4 +31,5 @@ CLUSTER_NAME=$(terraform -chdir="./terraform/aks-cluster" output -raw cluster_na
 az aks get-credentials -g $RESOURCE_GROUP_NAME -n "$CLUSTER_NAME" --overwrite-existing &&
 
 # Setup Jenkins
-bash "./setup-jenkins.sh"
+bash "./install-jenkins.sh"
+bash "./install-sonarqube.sh"

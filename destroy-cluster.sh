@@ -6,12 +6,27 @@ NODE_RESOURCE_GROUP_NAME="$NAME_PREFIX-aks-cluster-node-pool-rg"
 LOCATION="WestUS2"
 
 # Remove the Jenkins Ingress resource
-helm uninstall ingress-nginx-jenkins --namespace jenkins &&
-echo "Ingress resource removed." &&
+helm uninstall ingress-nginx-jenkins --namespace jenkins
+#echo "Jenkins Ingress resource removed."
 
 # Remove the Jenkins Helm release
-helm uninstall myjenkins -n jenkins --namespace jenkins &&
-echo "Jenkins Helm release removed." &&
+helm uninstall myjenkins -n jenkins --namespace jenkins
+#echo "Jenkins Helm release removed."
+
+# Remove the SonarQube Ingress resource
+helm uninstall ingress-nginx-sonarqube --namespace sonarqube
+#echo "SonarQube Ingress resource removed."
+
+# Remove the SonarQube Helm release
+helm uninstall sonarqube -n sonarqube --namespace sonarqube
+#echo "SonarQube Helm release removed."
+
+# Remove the Artifactory Ingress resource
+helm uninstall ingress-nginx-artifactory --namespace artifactory
+
+# Remove the Artifactory Helm release
+helm uninstall artifactory -n artifactory --namespace artifactory
+
 
 # Destroy the AKS cluster
 terraform -chdir="./terraform/aks-cluster" refresh \
@@ -42,4 +57,4 @@ terraform -chdir="./terraform/aks-vnet" destroy -auto-approve \
   echo "Virtual network resources destroyed." &&
 
 # Delete the resource group
-az group delete --name $RESOURCE_GROUP_NAME --yes
+az group delete --yes --name $RESOURCE_GROUP_NAME
