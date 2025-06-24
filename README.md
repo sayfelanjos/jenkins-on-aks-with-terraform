@@ -45,4 +45,10 @@ The project is organized as follows:
 
 ## Accessing the Services
 
-*   **Jenkins:** Access the Jenkins dashboard using the URL provided by the ingress
+*   **Jenkins:** Access the Jenkins dashboard using the URL provided by the ingress controller.
+*   **SonarQube:** Access the SonarQube dashboard using the URL provided by the ingress controller.
+*   **Artifactory:** Access the Artifactory dashboard using the URL provided by the ingress controller.
+
+## Cleanup
+
+To destroy all the resources created by this project, run the `destroy-cluster.sh` script.
