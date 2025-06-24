@@ -33,3 +33,4 @@ az aks get-credentials -g $RESOURCE_GROUP_NAME -n "$CLUSTER_NAME" --overwrite-ex
 # Setup Jenkins
 bash "./install-jenkins.sh"
 bash "./install-sonarqube.sh"
+bash "./install-artifactory.sh"
